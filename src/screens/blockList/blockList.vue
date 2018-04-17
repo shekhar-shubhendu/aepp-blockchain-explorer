@@ -21,7 +21,7 @@
     </div>
 
     <table class='transactions'>
-      <tr v-for='b in blocks'>
+      <tr v-for='b in blocks' v-cloak>
         <template v-if="b">
           <td>
             <div class="block-number">
