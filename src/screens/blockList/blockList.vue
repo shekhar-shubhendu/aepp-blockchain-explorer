@@ -20,8 +20,8 @@
      </div>
     </div>
 
-    <table class='transactions'>
-      <tr v-for='b in blocks' v-cloak>
+    <table class='transactions' v-cloak>
+      <tr v-for='b in blocks' v-bind:class="{'scale-in-ver-center':b}">
         <template v-if="b">
           <td>
             <div class="block-number">
@@ -136,4 +136,4 @@ export default {
   }
 }
 </script>
-<style src='./blockList.scss' lang='scss' />
+<style src='./blockList.scss' lang='scss' scoped/>
