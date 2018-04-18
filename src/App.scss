@@ -83,6 +83,7 @@ nav {
   top:0;
   width:100%;
   color:$white;
+  z-index: 4;
 }
 nav >.inner >:first-child ,
 nav >.inner >:last-child {
@@ -98,8 +99,6 @@ nav .inner {
   width:calc(100% - #{2 * $content-margin});
   display:flex;
   justify-content:space-between;
-}
-nav .links > * {
 }
 nav a {
   @include font-size(m);
@@ -136,10 +135,47 @@ nav a.router-link-exact-active.link:after {
   left:10px;
   border-top:3px solid #F7296E;
   bottom:-8px;
+  animation: scale-up-hor-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 .screen {
   padding-bottom:130px;
 }
 nav + main > .screen > :first-child{
   padding-top:100px;
+}
+
+//animations
+@keyframes scale-in-ver-center {
+  0% {
+    transform: scaleY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+@keyframes scale-up-hor-center {
+  0% {
+    transform: scaleX(0.4);
+  }
+  100% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
+}
+@keyframes scale-up-hor-center {
+  0% {
+    transform: scaleX(0.4);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+// declaration animation
+.scale-in-ver-center {
+  animation: scale-in-ver-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+.scale-up-hor-center {
+  animation: scale-up-hor-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
