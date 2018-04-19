@@ -11,8 +11,8 @@
   }
   .grid {
     border-bottom:2px solid $smoke;
-    align-items:flex-end;
     padding-bottom:15px;
+    align-items: center;
   }
   .grid > *{
     margin-right:10px;
@@ -21,5 +21,8 @@
   }
   .field-name {
     @include font-size(s);
+  }
+  .ae-panel {
+    animation: scale-in-ver-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   }
 }
