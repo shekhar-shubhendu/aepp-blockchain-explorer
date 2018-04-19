@@ -164,6 +164,7 @@ nav + main > .screen > :first-child{
             transform: scaleX(1);
   }
 }
+
 @keyframes scale-up-hor-center {
   0% {
     transform: scaleX(0.4);
@@ -172,10 +173,44 @@ nav + main > .screen > :first-child{
     transform: scaleX(1);
   }
 }
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in-ver-top {
+  0% {
+    transform: scaleY(0);
+    transform-origin: 100% 0%;
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    transform-origin: 100% 0%;
+    opacity: 1;
+  }
+}
+
 // declaration animation
-.scale-in-ver-center {
-  animation: scale-in-ver-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+.scale-in-ver-center,
+.market-stats-partial {
+  // animation: scale-in-ver-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: scale-in-ver-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 .scale-up-hor-center {
   animation: scale-up-hor-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
+.fade-in {
+  animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+// .header {
+//   animation: scale-in-ver-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+// }
