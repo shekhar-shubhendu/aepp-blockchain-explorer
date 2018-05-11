@@ -2,9 +2,9 @@
   .title {
     font-weight:normal;
     @include font-size(xl);
-    border-bottom:2px solid $aubergin;
-    padding-bottom:20px;
-    margin-bottom:20px;
+    // border-bottom:2px solid $aubergin;
+    // padding-bottom:20px;
+    // margin-bottom:20px;
   }
   > .inner {
     @include content-max-width;
@@ -21,5 +21,21 @@
   }
   .field-name {
     @include font-size(s);
+  }
+}
+.wrapper-transactions-head {
+  margin-bottom: 20px;
+  padding-bottom:20px;
+  border-bottom:2px solid $aubergin;
+  display: flex;
+  align-items: center;
+  .title, .form-holder {
+    flex:1;
+  }
+}
+.transaction-list-head {
+  display: flex;
+  .transaction-list-head-item {
+    flex:1;
   }
 }

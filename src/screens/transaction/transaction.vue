@@ -1,52 +1,52 @@
 <template>
   <div class="transaction-screen screen">
     <div class="inner">
+      <div class="wrapper-transactions-head">
+        <h1 class='title'>Transactions</h1>
+        <div class="form-holder">
+          <form class="grid" @submit.prevent="setNewHeight">
 
-      <h1 class='title'>Transactions</h1>
-      <form class="grid" @submit.prevent="setNewHeight">
-        <div>
-          load all transactions from block
+            <div>
+              from:
+              <input :value="newHeightFrom || heightFrom" @input="newHeightFrom = $event.target.value" type="number" />
+            </div>
+
+            <div>
+              to:
+              <input :value="newHeightTo || heightTo" @input="newHeightTo = $event.target.value" type="number" />
+            </div>
+
+            <ae-button size='small' type='exciting'>
+              go
+            </ae-button>
+
+          </form>
         </div>
+      </div>
 
-        <div>
-          <input
-            :value="newHeightFrom || heightFrom"
-            @input="newHeightFrom = $event.target.value"
-            type="number"
-          />
-        </div>
-
-        <div>
-          to:
-          <input
-            :value="newHeightTo || heightTo"
-            @input="newHeightTo = $event.target.value"
-            type="number"
-          />
-        </div>
-
-        <ae-button size='small' type='exciting'>
-          load
-        </ae-button>
-
-      </form>
 
       <div class='transaction-list'>
+        <div class="transaction-list-head">
+          <div class="transaction-list-head-item">Type</div>
+          <div class="transaction-list-head-item">Hash</div>
+          <div class="transaction-list-head-item">Sender</div>
+          <div class="transaction-list-head-item">Reciever</div>
+          <div class="transaction-list-head-item">Value</div>
+          <div class="transaction-list-head-item">Fee</div>  
+        </div>
         <ae-panel v-for='t in transactions' :key='t.hash'>
-          <transaction :transaction='t'/>
+          <transaction :transaction='t' />
         </ae-panel>
       </div>
       <div class='center'>
-        <ae-button
-          @click="heightFrom -= 10"
-          type='exciting' class="load-more"
-        >
+        <ae-button @click="heightFrom -= 10" type='exciting' class="load-more">
           Load more
         </ae-button>
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 import { mapState } from 'vuex'
