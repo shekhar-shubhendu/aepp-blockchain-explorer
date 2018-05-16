@@ -25,18 +25,8 @@
       </div>
 
 
-      <div class='transaction-list'>
-        <div class="transaction-list-head">
-          <div class="transaction-list-head-item">Type</div>
-          <div class="transaction-list-head-item">Hash</div>
-          <div class="transaction-list-head-item">Sender</div>
-          <div class="transaction-list-head-item">Reciever</div>
-          <div class="transaction-list-head-item">Value</div>
-          <div class="transaction-list-head-item">Fee</div>  
-        </div>
-        <ae-panel v-for='t in transactions' :key='t.hash'>
-          <transaction :transaction='t' />
-        </ae-panel>
+      <div class='transactions'>
+        <transaction v-for='t in transactions' :key='t.hash' :transaction='t'/>
       </div>
       <div class='center'>
         <ae-button @click="heightFrom -= 10" type='exciting' class="load-more">

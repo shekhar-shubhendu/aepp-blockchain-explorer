@@ -5,6 +5,7 @@ import _ from 'lodash'
 Vue.use(Vuex)
 
 const BASE_URL = process.env.AETERNITY_EPOCH_API_URL
+const NAME_LOOKUP_MIDDLEWARE_URL = process.env.NAME_LOOKUP_MIDDLEWARE_URL
 const fetchJson = async (...args) => {
   const response = await fetch(...args)
   return response.json()
@@ -19,6 +20,7 @@ const store = new Vuex.Store({
     blocks: {},
     txs: {},
     accounts: {},
+    accountNames: {},
     nodeStatus: null,
     env: process.env
   },
@@ -37,6 +39,9 @@ const store = new Vuex.Store({
     setAccount (state, account) {
       Vue.set(state.accounts, account.address, account)
     },
+    setAccountName (state, account) {
+      Vue.set(state.accountNames, account.address, account)
+    },
     setNodeStatus (state, nodeStatus) {
       state.nodeStatus = nodeStatus
     },
@@ -47,7 +52,8 @@ const store = new Vuex.Store({
 
   actions: {
     async fetchHeight ({ state, commit }) {
-      const { height } = await fetchJson(`${BASE_URL}internal/v2/block/number`)
+      // const { height } = await fetchJson(`${BASE_URL}internal/v2/block/number`)
+      const { height } = await fetchJson(`${BASE_URL}v2/top`)
       if (height === state.height) return
       commit('setHeight', height)
     },
@@ -71,6 +77,28 @@ const store = new Vuex.Store({
       if (_.isEqual(state.accounts[address], account)) return
       commit('setAccount', account)
     },
+    async fetchAccountName ({ state, commit }, address) {
+      if (!NAME_LOOKUP_MIDDLEWARE_URL) return
+      if (state.accountNames[address]) {
+        const diff = new Date().getTime() - state.accountNames[address].ts
+        if (diff < 10000) return
+      }
+      if (!state.accountNames[address]) {
+        commit('setAccountName', {
+          address: address,
+          name: null,
+          ts: new Date().getTime()
+        })
+      }
+      const {name} = await fetchJson(`${NAME_LOOKUP_MIDDLEWARE_URL}${address}`)
+      const account = {
+        address: address,
+        name: name,
+        ts: new Date().getTime()
+      }
+      if (_.isEqual(state.accountNames[address], account)) return
+      commit('setAccountName', account)
+    },
     async fetchNodeStatus ({ state, commit }) {
       const [nodeTop, nodeVersion, peers] = await Promise.all([
         fetchJson(`${BASE_URL}v2/top`),
@@ -90,7 +118,7 @@ const store = new Vuex.Store({
     async loadBlock ({ state, commit }, { hash, height }) {
       if (state.blocks[hash || height]) return
       const query = `${hash ? 'hash' : 'height'}/${hash || height}`
-      const block = await fetchJson(`${BASE_URL}internal/v2/block/${query}?tx_encoding=json`)
+      const block = await fetchJson(`${BASE_URL}v2/block/${query}?tx_encoding=json`)
       commit('setBlock', {
         ...block,
         minedBy: block.transactions.find(tx => tx.tx.type === 'coinbase_tx').tx.account
