@@ -1,0 +1,10 @@
+.transactionListHead {
+  display: flex;
+  margin-bottom: 10px;
+  .transactionListHead-item {
+    flex: 1;
+    color: #1e1e1e;
+    opacity: .7;
+    text-transform: capitalize;
+  }
+}

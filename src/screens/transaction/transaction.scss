@@ -11,7 +11,7 @@
   }
   .grid {
     align-items:flex-end;
-    padding-bottom:15px;
+    // padding-bottom:15px;
   }
   .grid > *{
     margin-right:10px;
@@ -37,10 +37,17 @@
   .title, .form-holder {
     flex:1;
   }
-}
-.transaction-list-head {
-  display: flex;
-  .transaction-list-head-item {
-    flex:1;
+  span {
+    opacity:.6;
+  }
+  input {
+    border:0;
+    border-radius: 15px;
+    text-align: center;
+    height: 29px;
+    color: #1e1e1e;
+  }
+  button {
+    text-transform: uppercase;
   }
 }

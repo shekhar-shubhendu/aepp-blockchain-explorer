@@ -7,12 +7,12 @@
           <form class="grid" @submit.prevent="setNewHeight">
 
             <div>
-              from:
+              <span>from blocks</span>
               <input :value="newHeightFrom || heightFrom" @input="newHeightFrom = $event.target.value" type="number" />
             </div>
 
             <div>
-              to:
+              <span>until</span>
               <input :value="newHeightTo || heightTo" @input="newHeightTo = $event.target.value" type="number" />
             </div>
 
@@ -24,6 +24,7 @@
         </div>
       </div>
 
+      <transactionsListHead></transactionsListHead>
 
       <div class='transactions'>
         <transaction v-for='t in transactions' :key='t.hash' :transaction='t'/>
@@ -45,11 +46,13 @@ import {
   AePanel
 } from '@aeternity/aepp-components'
 import Transaction from '../../components/transaction/transaction.vue'
+import transactionsListHead from '@/partials/transactionsListHead/transactionsListHead.vue'
 export default {
   components: {
     AeButton,
     AePanel,
-    Transaction
+    Transaction,
+    transactionsListHead
   },
   data () {
     return {
